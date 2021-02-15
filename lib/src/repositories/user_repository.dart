@@ -17,4 +17,13 @@ class UserRepository {
 
     return users;
   }
+
+  Future<UserModel> getUserByName(String name) async {
+    var response = await http.get(url + '/$name');
+    var jsonResponse = convert.jsonDecode(response.body);
+
+    UserModel user = UserModel.fromJson(jsonResponse);
+
+    return user;
+  }
 }

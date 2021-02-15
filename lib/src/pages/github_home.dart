@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teste/src/components/area_pesquisa.dart';
 import 'package:teste/src/components/users_list.dart';
 import 'package:teste/src/controllers/user_controller.dart';
 
@@ -17,6 +18,12 @@ class _GithubHomeState extends State<GithubHome> {
     userController.start();
   }
 
+  buscaUserByName(String valor) {
+    setState(() {
+      userController.getUserByName(valor);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +32,16 @@ class _GithubHomeState extends State<GithubHome> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              Expanded(
-                child: Text('Área de busca'),
+              AreaPesquisa(
+                buscaUSerByName: buscaUserByName,
               ),
               UserList(
-                tamanho: userController.users.length,
-                users: userController.users,
+                tamanho: (userController.user.login != null)
+                    ? 1
+                    : userController.users.length,
+                users: (userController.user.login != null)
+                    ? userController.user
+                    : userController.users,
               ),
             ],
           )),

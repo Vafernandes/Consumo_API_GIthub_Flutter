@@ -17,7 +17,10 @@ class _UserListState extends State<UserList> {
       child: ListView.builder(
         itemCount: widget.tamanho,
         itemBuilder: (context, index) {
-          var user = widget.users[index];
+          var user;
+          (widget.tamanho == 1)
+              ? user = widget.users
+              : user = widget.users[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
