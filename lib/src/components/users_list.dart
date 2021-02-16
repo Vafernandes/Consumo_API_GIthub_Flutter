@@ -8,12 +8,13 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 3,
-        child: AnimatedBuilder(
-          animation: userController.state,
-          builder: (context, child) {
-            return StateManager(userController: userController);
-          },
-        ));
+      flex: 3,
+      child: AnimatedBuilder(
+        animation: userController.state,
+        builder: (context, child) {
+          return StateManager(userController: userController);
+        },
+      ),
+    );
   }
 }
