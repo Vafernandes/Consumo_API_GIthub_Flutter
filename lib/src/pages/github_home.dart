@@ -13,7 +13,6 @@ class _GithubHomeState extends State<GithubHome> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     userController.start();
   }
@@ -28,24 +27,15 @@ class _GithubHomeState extends State<GithubHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              AreaPesquisa(
-                buscaUSerByName: buscaUserByName,
-              ),
-              UserList(
-                userController: userController,
-                tamanho: (userController.user.login != null)
-                    ? 1
-                    : userController.users.length,
-                users: (userController.user.login != null)
-                    ? userController.user
-                    : userController.users,
-              ),
-            ],
-          )),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            AreaPesquisa(buscaUSerByName: buscaUserByName),
+            UserList(userController: userController),
+          ],
+        ),
+      ),
     );
   }
 }
