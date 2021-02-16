@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:teste/src/controllers/user_controller.dart';
 
-class UserList extends StatefulWidget {
+class UserList extends StatelessWidget {
   final tamanho;
   final users;
+  final userController;
 
-  const UserList({Key key, this.tamanho, this.users}) : super(key: key);
-  @override
-  _UserListState createState() => _UserListState();
-}
-
-class _UserListState extends State<UserList> {
+  const UserList({Key key, this.tamanho, this.users, this.userController})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: ListView.builder(
-        itemCount: widget.tamanho,
+    _start() {
+      return Container();
+    }
+
+    _success() {
+      return ListView.builder(
+        itemCount: tamanho,
         itemBuilder: (context, index) {
           var user;
-          (widget.tamanho == 1)
-              ? user = widget.users
-              : user = widget.users[index];
+          (tamanho == 1) ? user = users : user = users[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
@@ -56,7 +55,53 @@ class _UserListState extends State<UserList> {
             ),
           );
         },
-      ),
-    );
+      );
+    }
+
+    _loading() {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    _error() {
+      return Center(
+        child: RaisedButton(
+          color: Colors.blue[100],
+          child: Text(
+            'Tente novamente',
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            userController.start();
+          },
+        ),
+      );
+    }
+
+    _stateManeger(GitStatus status) {
+      switch (status) {
+        case GitStatus.start:
+          return _start();
+          break;
+        case GitStatus.success:
+          return _success();
+          break;
+        case GitStatus.loading:
+          return _loading();
+          break;
+        case GitStatus.error:
+          return _error();
+          break;
+        default:
+      }
+    }
+
+    return Expanded(
+        flex: 3,
+        child: AnimatedBuilder(
+          animation: userController.state,
+          builder: (context, child) {
+            return _stateManeger(userController.state.value);
+          },
+        ));
   }
 }

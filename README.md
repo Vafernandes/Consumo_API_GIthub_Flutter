@@ -1,16 +1,37 @@
-# teste
+# Consumo da API do Github - Dart/Flutter
 
-A new Flutter project.
+### Este projetinho teve como objetivo entender como funciona o consumo de API com a dependência HTTP do Dart/Flutter.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+```dart
 
-A few resources to get you started if this is your first Flutter project:
+class UserRepository {
+  var url = 'https://api.github.com/users';
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  Future<List<UserModel>> getAllUsers() async {
+    var response = await http.get(url);
+    var jsonResponse = convert.jsonDecode(response.body);
+    List<UserModel> users = [];
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    for (var json in jsonResponse) {
+      users.add(UserModel.fromJson(json));
+    }
+
+    return users;
+  }
+
+  Future<UserModel> getUserByName(String name) async {
+    var response = await http.get(url + '/$name');
+    var jsonResponse = convert.jsonDecode(response.body);
+
+    UserModel user = UserModel.fromJson(jsonResponse);
+
+    return user;
+  }
+}
+
+```
+
+## O resultado foi este:
+
+![Alt Text](gif/apresentacao.gif)

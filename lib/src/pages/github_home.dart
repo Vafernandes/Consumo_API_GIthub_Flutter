@@ -36,6 +36,7 @@ class _GithubHomeState extends State<GithubHome> {
                 buscaUSerByName: buscaUserByName,
               ),
               UserList(
+                userController: userController,
                 tamanho: (userController.user.login != null)
                     ? 1
                     : userController.users.length,
