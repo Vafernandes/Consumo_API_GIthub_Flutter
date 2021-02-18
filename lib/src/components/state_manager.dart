@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:teste/src/controllers/user_controller.dart';
 
 class StateManager extends StatelessWidget {
-  final userController;
+  final UserController userController;
+  final Function(String) goToBio;
 
-  const StateManager({Key key, this.userController}) : super(key: key);
+  const StateManager({Key key, this.userController, this.goToBio})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,29 +29,46 @@ class StateManager extends StatelessWidget {
             child: SizedBox(
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(9),
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(user.avatarUrl),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(9),
+                      child: CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(user.avatarUrl),
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          user.login,
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Container(height: 5),
-                        Text('Descrição'),
-                      ],
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            user.login,
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Container(height: 5),
+                          Text('Descrição'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: IconButton(
+                      icon: Icon(Icons.chevron_right),
+                      onPressed: () {
+                        goToBio(user.login);
+                        Navigator.pushNamed(context, '/user-bio',
+                            arguments: user);
+                        print(user.login);
+                        print(user.bio);
+                      },
                     ),
                   )
                 ],

@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 import 'package:teste/src/models/user_models.dart';
+import 'package:teste/src/models/user_repo.dart';
 
 class UserRepository {
   var url = 'https://api.github.com/users';
@@ -25,5 +26,17 @@ class UserRepository {
     UserModel user = UserModel.fromJson(jsonResponse);
 
     return user;
+  }
+
+  Future<List<UserRepo>> getRepos(String user) async {
+    var response = await http.get(url + '/$user' + '/repos');
+    var jsonResponse = convert.jsonDecode(response.body);
+    List<UserRepo> repositories = [];
+
+    for (var json in jsonResponse) {
+      repositories.add(UserRepo.fromJson(json));
+    }
+
+    return repositories;
   }
 }
