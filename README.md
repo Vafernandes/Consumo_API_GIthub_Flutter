@@ -1,6 +1,11 @@
 # Consumo da API do Github - Dart/Flutter
 
-### Este projetinho teve como objetivo entender como funciona o consumo de API com a dependência HTTP do Dart/Flutter.
+### Este projetinho teve como objetivo entender como funciona o consumo de API com a dependência HTTP do Dart/Flutter. Além de ter aprendido a utilizar vários outros conceitos como:
+
+* Navigator
+* Passagem de dados entre rotas
+* async/await
+* Consumo de API com Dart
 
 
 ```dart
@@ -34,4 +39,4 @@ class UserRepository {
 
 ## O resultado foi este:
 
-![Alt Text](gif/apresentacao.gif)
+![Alt Text](gif/gif.gif)
