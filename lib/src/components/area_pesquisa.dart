@@ -22,9 +22,9 @@ class _AreaPesquisaState extends State<AreaPesquisa> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: Text(
-                  'Explore repositórios no GIthub',
+                  'Explore usuários do Github',
                   style: TextStyle(
                     color: Colors.black54,
                     fontSize: 20,
@@ -39,22 +39,27 @@ class _AreaPesquisaState extends State<AreaPesquisa> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
+                  Container(
+                    width: 10,
+                  ),
                   Expanded(
-                    flex: 4,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Pesquise aqui',
+                    flex: 5,
+                    child: Container(
+                      height: 45,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Pesquise aqui',
+                        ),
+                        onChanged: (value) {
+                          textoDigitado = value;
+                        },
                       ),
-                      onChanged: (value) {
-                        textoDigitado = value;
-                        print(textoDigitado);
-                      },
                     ),
                   ),
                   Expanded(
                     child: IconButton(
-                      color: Colors.green,
+                      color: Colors.blue,
                       icon: Icon(
                         Icons.search,
                         size: 35,

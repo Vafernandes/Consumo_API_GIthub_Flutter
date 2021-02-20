@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:teste/src/controllers/user_controller.dart';
+import 'package:teste/src/controllers/user_repo_controller.dart';
+import 'package:teste/src/models/user_models.dart';
 
-class StateManager extends StatelessWidget {
+class StateManager extends StatefulWidget {
   final UserController userController;
-  final Function(String) goToBio;
 
-  const StateManager({Key key, this.userController, this.goToBio})
-      : super(key: key);
+  const StateManager({Key key, this.userController}) : super(key: key);
+
+  @override
+  _StateManagerState createState() => _StateManagerState();
+}
+
+class _StateManagerState extends State<StateManager> {
+  UserRepoController userRepoController = UserRepoController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +23,14 @@ class StateManager extends StatelessWidget {
 
     _success() {
       return ListView.builder(
-        itemCount: (userController.user.login != null)
+        itemCount: (widget.userController.user.login != null)
             ? 1
-            : userController.users.length,
+            : widget.userController.users.length,
         itemBuilder: (context, index) {
-          var user;
-          (userController.user.login != null)
-              ? user = userController.user
-              : user = userController.users[index];
+          UserModel user;
+          (widget.userController.user.login != null)
+              ? user = widget.userController.user
+              : user = widget.userController.users[index];
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
@@ -62,12 +69,12 @@ class StateManager extends StatelessWidget {
                   Expanded(
                     child: IconButton(
                       icon: Icon(Icons.chevron_right),
-                      onPressed: () {
-                        goToBio(user.login);
+                      onPressed: () async {
+                        UserModel userModelResponse =
+                            await userRepoController.getUserByName(user.login);
+
                         Navigator.pushNamed(context, '/user-bio',
-                            arguments: user);
-                        print(user.login);
-                        print(user.bio);
+                            arguments: userModelResponse);
                       },
                     ),
                   )
@@ -92,7 +99,7 @@ class StateManager extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           onPressed: () {
-            userController.start();
+            widget.userController.start();
           },
         ),
       );
@@ -116,6 +123,6 @@ class StateManager extends StatelessWidget {
       }
     }
 
-    return _stateManager(userController.state.value);
+    return _stateManager(widget.userController.state.value);
   }
 }

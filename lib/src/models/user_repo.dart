@@ -1,4 +1,4 @@
-class UserRepo {
+class UserRepoModel {
   int id;
   String nodeId;
   String name;
@@ -73,7 +73,7 @@ class UserRepo {
   int watchers;
   String defaultBranch;
 
-  UserRepo(
+  UserRepoModel(
       {this.id,
       this.nodeId,
       this.name,
@@ -148,7 +148,7 @@ class UserRepo {
       this.watchers,
       this.defaultBranch});
 
-  UserRepo.fromJson(Map<String, dynamic> json) {
+  UserRepoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nodeId = json['node_id'];
     name = json['name'];

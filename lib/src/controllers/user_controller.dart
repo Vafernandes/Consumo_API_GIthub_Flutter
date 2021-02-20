@@ -21,14 +21,16 @@ class UserController {
     }
   }
 
-  Future getUserByName(String name) async {
+  Future<UserModel> getUserByName(String name) async {
     state.value = GitStatus.loading;
     try {
       user = await _userRepository.getUserByName(name);
       state.value = GitStatus.success;
+      return user;
     } catch (e) {
       state.value = GitStatus.error;
     }
+    return null;
   }
 }
 

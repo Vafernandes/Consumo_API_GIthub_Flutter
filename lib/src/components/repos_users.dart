@@ -1,32 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:teste/src/controllers/user_repo_controller.dart';
 import 'package:teste/src/models/user_models.dart';
+import 'package:teste/src/models/user_repo.dart';
 
-class ReposUser extends StatefulWidget {
+class ReposUser extends StatelessWidget {
   final UserModel userModel;
+  final List<UserRepoModel> repositories;
 
-  const ReposUser({Key key, this.userModel}) : super(key: key);
-  @override
-  _ReposUserState createState() => _ReposUserState();
-}
-
-class _ReposUserState extends State<ReposUser> {
-  UserRepoController userRepoController = UserRepoController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    userRepoController.getAllRepositories(widget.userModel.login);
-  }
-
+  const ReposUser({Key key, this.userModel, this.repositories})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      flex: 2,
       child: ListView.builder(
-        itemCount: userRepoController.repositories.length,
+        itemCount: repositories.length,
         itemBuilder: (context, index) {
-          var repository = userRepoController.repositories[index];
+          var repository = repositories[index];
           return Card(
             child: ListTile(
               title: Text(repository.name),

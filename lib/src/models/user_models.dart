@@ -20,11 +20,11 @@ class UserModel {
   String name;
   String company;
   String blog;
-  Null location;
-  Null email;
-  Null hireable;
+  String location;
+  String email;
+  String hireable;
   String bio;
-  Null twitterUsername;
+  String twitterUsername;
   int publicRepos;
   int publicGists;
   int followers;

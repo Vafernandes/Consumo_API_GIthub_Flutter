@@ -10,15 +10,27 @@ class UserBio extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserModel userModel = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Container(
-          child: Bio(
-            userModel: userModel,
-          ),
-        ),
+            child: Stack(
+          children: [
+            Bio(userModel: userModel),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20, right: 20),
+              child: Container(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                  child: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
+                ),
+              ),
+            )
+          ],
+        )),
       ),
     );
   }

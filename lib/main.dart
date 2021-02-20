@@ -7,12 +7,7 @@ void main() {
   runApp(GithubUsers());
 }
 
-class GithubUsers extends StatefulWidget {
-  @override
-  _GithubUsersState createState() => _GithubUsersState();
-}
-
-class _GithubUsersState extends State<GithubUsers> {
+class GithubUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

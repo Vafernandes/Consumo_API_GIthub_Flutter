@@ -32,10 +32,7 @@ class _GithubHomeState extends State<GithubHome> {
         child: Column(
           children: [
             AreaPesquisa(buscaUSerByName: buscaUserByName),
-            UserList(
-              userController: userController,
-              goToBio: buscaUserByName,
-            ),
+            UserList(userController: userController),
           ],
         ),
       ),
