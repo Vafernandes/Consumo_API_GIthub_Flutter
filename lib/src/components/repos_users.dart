@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste/src/models/user_models.dart';
 import 'package:teste/src/models/user_repo.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReposUser extends StatelessWidget {
   final UserModel userModel;
@@ -8,6 +9,12 @@ class ReposUser extends StatelessWidget {
 
   const ReposUser({Key key, this.userModel, this.repositories})
       : super(key: key);
+
+  _direcionar(String login, String repoName) async {
+    var url = 'https://github.com/$login/$repoName';
+    await launch(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -18,7 +25,12 @@ class ReposUser extends StatelessWidget {
           var repository = repositories[index];
           return Card(
             child: ListTile(
-              title: Text(repository.name),
+              title: TextButton(
+                child: Text(repository.name),
+                onPressed: () {
+                  _direcionar(repository.owner.login, repository.name);
+                },
+              ),
             ),
           );
         },

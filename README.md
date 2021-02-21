@@ -39,4 +39,4 @@ class UserRepository {
 
 ## O resultado foi este:
 
-![Alt Text](gif/gif.gif)
+![Alt Text](gif/atualizacao.gif)
